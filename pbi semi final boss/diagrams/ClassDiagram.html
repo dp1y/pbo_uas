@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Diagram - Sistem Parkiran</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .diagram-container {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #667eea;
+            overflow-x: auto;
+            margin-bottom: 40px;
+        }
+        .info-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .info-section h2 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        .class-box {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+        .class-title {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        .class-content {
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.8;
+        }
+        .method-item {
+            margin: 8px 0;
+            padding: 8px;
+            background: #f9f9f9;
+            border-left: 3px solid #0275d8;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .property-item {
+            margin: 8px 0;
+            padding: 8px;
+            background: #f9f9f9;
+            border-left: 3px solid #28a745;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .relationship-box {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            border: 2px dashed #ff9900;
+        }
+        .relationship-title {
+            font-weight: bold;
+            color: #ff9900;
+            margin-bottom: 10px;
+        }
+        .visibility {
+            color: #666;
+            font-size: 0.85em;
+        }
+        .public { color: #00aa00; font-weight: bold; }
+        .private { color: #cc0000; font-weight: bold; }
+        .protected { color: #ff9900; font-weight: bold; }
+        .static { font-style: italic; }
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .btn-print {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .btn-print:hover {
+            background: #764ba2;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+            .btn-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Class Diagram</h1>
+        <p class="subtitle">Sistem Manajemen Parkiran - Struktur OOP</p>
+        
+        <div class="diagram-container">
+            <div class="mermaid">
+classDiagram
+    class User {
+        -String username
+        -String nama
+        -String password
+        -String level
+        +login(username, password) String
+        +get_nama_ptg(username) String
+        +select_all_data() List
+        +select_data_by_username(username) Tuple
+        +insert_data(username, nama, password, level) void
+        +update_data(username, nama, password, level) void
+        +delete_data(username) void
+        +search(keyword) List
+        +get_user_by_username(username) Tuple
+    }
+
+    class Kendaraan {
+        -int id
+        -String nopol
+        -DateTime waktu_masuk
+        -String petugas_masuk
+        -DateTime waktu_keluar
+        -String petugas_keluar
+        -String status
+        +kendaraan_masuk(nopol, petugas) void
+        +kendaraan_keluar(nopol, petugas) void
+        +get_kendaraan_detail(nopol) Tuple
+        +select_data() List
+    }
+
+    class Kendaraan_Pribadi {
+        -int id
+        -String nopol
+        -String tipe
+        -int tarif
+        +kendaraan_masuk(nopol, tipe, tarif, petugas) void
+        +get_detail_pribadi(nopol) Tuple
+    }
+
+    class Bus {
+        -int id
+        -String nopol
+        -String kategori
+        -int kapasitas
+        -int tarif
+        +kendaraan_masuk(nopol, kategori, kapasitas, tarif, petugas) void
+        +get_detail_bus(nopol) Tuple
+    }
+
+    class Kendaraan_Manager {
+        +get_kendaraan_detail(nopol) Tuple
+        +get_detail_pribadi(nopol) Tuple
+        +get_detail_bus(nopol) Tuple
+        +hitung_tarif(waktu_masuk, waktu_keluar, tarif) Tuple
+        +hitung_tarif_bus(kapasitas) int
+        +is_nopol_exists(nopol) bool
+        +get_all_kendaraan() List
+        +search_kendaraan(nopol) List
+    }
+
+    class Level {
+        -int id
+        -String level
+    }
+
+    class Session {
+        +String current_user
+    }
+
+    class Connection {
+        +mydb MySQL_Connection
+        +mycursor MySQL_Cursor
+        +connect() void
+        +close() void
+    }
+
+    %% Relationships
+    User --> Level: "has"
+    Kendaraan --> User: "petugas_masuk"
+    Kendaraan --> User: "petugas_keluar"
+    Kendaraan_Pribadi --> Kendaraan: "contains"
+    Bus --> Kendaraan: "contains"
+    Kendaraan_Manager --> Kendaraan: "manages"
+    Kendaraan_Manager --> Kendaraan_Pribadi: "manages"
+    Kendaraan_Manager --> Bus: "manages"
+    Connection --> User: "uses"
+    Connection --> Kendaraan: "uses"
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>📊 Deskripsi Class</h2>
+            
+            <div class="class-box">
+                <div class="class-title">👤 User</div>
+                <div class="class-content">
+                    <p><strong>Deskripsi:</strong> Class yang merepresentasikan pengguna sistem (Admin/Kasir)</p>
+                    
+                    <div style="margin-top: 10px;">
+                        <p><strong style="color: #28a745;">Attributes:</strong></p>
+                        <div class="property-item">- username : String (PK)</div>
+                        <div class="property-item">- nama : String</div>
+                        <div class="property-item">- password : String</div>
+                        <div class="property-item">- level : String (FK)</div>
+                    </div>
+
+                    <div style="margin-top: 10px;">
+                        <p><strong style="color: #0275d8;">Methods:</strong></p>
+                        <div class="method-item">+ login(username, password) : String</div>
+                        <div class="method-item">+ get_nama_ptg(username) : String</div>
+                        <div class="method-item">+ select_all_data() : List&lt;User&gt;</div>
+                        <div class="method-item">+ select_data_by_username(username) : Tuple</div>
+                        <div class="method-item">+ insert_data(username, nama, password, level) : void</div>
+                        <div class="method-item">+ update_data(username, nama, password, level) : void</div>
+                        <div class="method-item">+ delete_data(username) : void</div>
+                        <div class="method-item">+ search(keyword) : List&lt;User&gt;</div>
+                        <div class="method-item">+ get_user_by_username(username) : Tuple</div>
+                    </div>
+
+                    <p style="margin-top: 10px;"><strong>Tanggung Jawab:</strong> Mengelola data user, autentikasi, dan CRUD operasi user</p>
+                </div>
+            </div>
+
+            <div class="class-box">
+                <div class="class-title">🚗 Kendaraan</div>
+                <div class="class-content">
+                    <p><strong>Deskripsi:</strong> Class induk yang merepresentasikan kendaraan dalam sistem parkir</p>
+                    
+                    <div style="margin-top: 10px;">
+                        <p><strong style="color: #28a745;">Attributes:</strong></p>
+                        <div class="property-item">- id : int (PK)</div>
+                        <div class="property-item">- nopol : String</div>
+                        <div class="property-item">- waktu_masuk : DateTime</div>
+                        <div class="property-item">- petugas_masuk : String (FK)</div>
+                        <div class="property-item">- waktu_keluar : DateTime</div>
+                        <div class="property-item">- petugas_keluar : String (FK)</div>
+                        <div class="property-item">- status : String (parkir/keluar)</div>
+                    </div>
+
+                    <div style="margin-top: 10px;">
+                        <p><strong style="color: #0275d8;">Methods:</strong></p>
+                        <div class="method-item">+ kendaraan_masuk(nopol, petugas) : void</div>
+                        <div class="method-item">+ kendaraan_keluar(nopol, petugas) : void</div>
+                        <div class="method-item">+ get_kendaraan_detail(nopol) : Tuple</div>
+                        <div class="method-item">+ select_data() : List&lt;Kendaraan&gt;</div>
+                    </div>
+
+                    <p style="margin-top: 10px;"><strong>Tanggung Jawab:</strong> Mengelola data kendaraan masuk/keluar dan track status parkir</p>
+                </div>
+            </div>
+
+            <div class="class-box">
+                <div class="class-title">🏍️ Kendaraan_Pribadi</div>
+                <div class="class-content">
+                    <p><strong>Deskripsi:</strong> Class turunan dari Kendaraan untuk kendaraan pribadi (Motor/Mobil)</p>
+                    
+                    <div style="margin-top: 10px;">
+                        <p><strong style="color: #28a745;">Attributes:</strong></p>
+                        <div class="property-item">- id : int (PK)</div>
+                        <div class="property-item">- nopol : String (FK → Kendaraan)</div>
+                        <div class="property-item">- tipe : String (Motor/Mobil)</div>
+                        <div class="property-item">- tarif : int (Rp/jam)</div>
+                    </div>
+
+                    <div style="margin-top: 10px;">
+                        <p><strong style="color: #0275d8;">Methods:</strong></p>
+                        <div class="method-item">+ kendaraan_masuk(nopol, tipe, tarif, petugas) : void</div>
+                        <div class="method-item">+ get_detail_pribadi(nopol) : Tuple</div>
+                    </div>
+
+                    <p style="margin-top: 10px;"><strong>Tanggung Jawab:</strong> Mengelola data detail kendaraan pribadi</p>
+                </div>
+            </div>
+
+            <div class="class-box">
+                <div class="class-title">🚌 Bus</div>
+                <div class="class-content">
+                    <p><strong>Deskripsi:</strong> Class turunan dari Kendaraan untuk bus</p>
+                    
+                    <div style="margin-top: 10px;">
+                        <p><strong style="color: #28a745;">Attributes:</strong></p>
+                        <div class="property-item">- id : int (PK)</div>
+                        <div class="property-item">- nopol : String (FK → Kendaraan)</div>
+                        <div class="property-item">- kategori : String (Elf/Bus)</div>
+                        <div class="property-item">- kapasitas : int (penumpang)</div>
+                        <div class="property-item">- tarif : int (Rp/jam)</div>
+                    </div>
+
+                    <div style="margin-top: 10px;">
+                        <p><strong style="color: #0275d8;">Methods:</strong></p>
+                        <div class="method-item">+ kendaraan_masuk(nopol, kategori, kapasitas, tarif, petugas) : void</div>
+                        <div class="method-item">+ get_detail_bus(nopol) : Tuple</div>
+                    </div>
+
+                    <p style="margin-top: 10px;"><strong>Tanggung Jawab:</strong> Mengelola data detail bus</p>
+                </div>
+            </div>
+
+            <div class="class-box">
+                <div class="class-title">🎯 Kendaraan_Manager</div>
+                <div class="class-content">
+                    <p><strong>Deskripsi:</strong> Class manager/utility yang menghandle operasi-operasi pada kendaraan (Business Logic)</p>
+                    
+                    <div style="margin-top: 10px;">
+                        <p><strong style="color: #0275d8;">Methods (Static):</strong></p>
+                        <div class="method-item">+ get_kendaraan_detail(nopol) : Tuple</div>
+                        <div class="method-item">+ get_detail_pribadi(nopol) : Tuple</div>
+                        <div class="method-item">+ get_detail_bus(nopol) : Tuple</div>
+                        <div class="method-item">+ hitung_tarif(waktu_masuk, waktu_keluar, tarif) : (int, float)</div>
+                        <div class="method-item">+ hitung_tarif_bus(kapasitas) : int</div>
+                        <div class="method-item">+ is_nopol_exists(nopol) : bool</div>
+                        <div class="method-item">+ get_all_kendaraan() : List&lt;Kendaraan&gt;</div>
+                        <div class="method-item">+ search_kendaraan(nopol) : List&lt;Kendaraan&gt;</div>
+                    </div>
+
+                    <p style="margin-top: 10px;"><strong>Tanggung Jawab:</strong> Business logic untuk manajemen kendaraan, perhitungan tarif, dan query kompleks</p>
+                </div>
+            </div>
+
+            <div class="class-box">
+                <div class="class-title">🔐 Level</div>
+                <div class="class-content">
+                    <p><strong>Deskripsi:</strong> Class yang merepresentasikan level/role user (Admin/Kasir)</p>
+                    
+                    <div style="margin-top: 10px;">
+                        <p><strong style="color: #28a745;">Attributes:</strong></p>
+                        <div class="property-item">- id : int (PK)</div>
+                        <div class="property-item">- level : String (admin/kasir)</div>
+                    </div>
+
+                    <p style="margin-top: 10px;"><strong>Tanggung Jawab:</strong> Menyimpan informasi level/role dalam sistem</p>
+                </div>
+            </div>
+
+            <div class="class-box">
+                <div class="class-title">💾 Session</div>
+                <div class="class-content">
+                    <p><strong>Deskripsi:</strong> Class untuk menyimpan data session user yang sedang login</p>
+                    
+                    <div style="margin-top: 10px;">
+                        <p><strong style="color: #28a745;">Attributes:</strong></p>
+                        <div class="property-item">+ current_user : String (global)</div>
+                    </div>
+
+                    <p style="margin-top: 10px;"><strong>Tanggung Jawab:</strong> Track user yang sedang login untuk audit dan log</p>
+                </div>
+            </div>
+
+            <div class="class-box">
+                <div class="class-title">🔌 Connection</div>
+                <div class="class-content">
+                    <p><strong>Deskripsi:</strong> Class untuk koneksi ke database MySQL</p>
+                    
+                    <div style="margin-top: 10px;">
+                        <p><strong style="color: #28a745;">Attributes:</strong></p>
+                        <div class="property-item">+ mydb : MySQL_Connection</div>
+                        <div class="property-item">+ mycursor : MySQL_Cursor</div>
+                    </div>
+
+                    <div style="margin-top: 10px;">
+                        <p><strong style="color: #0275d8;">Methods:</strong></p>
+                        <div class="method-item">+ connect() : void</div>
+                        <div class="method-item">+ close() : void</div>
+                    </div>
+
+                    <p style="margin-top: 10px;"><strong>Tanggung Jawab:</strong> Mengelola koneksi database untuk semua class</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>🔗 Hubungan Antar Class (Relationships)</h2>
+            
+            <div class="relationship-box">
+                <div class="relationship-title">User ↔ Level (1:N)</div>
+                <div><strong>Tipe:</strong> Association / Foreign Key</div>
+                <div><strong>Deskripsi:</strong> Satu level memiliki banyak user. User.level mereferensikan ke Level.id</div>
+                <div><strong>Implementasi:</strong> User.level = Level.id</div>
+            </div>
+
+            <div class="relationship-box">
+                <div class="relationship-title">Kendaraan → User (N:1)</div>
+                <div><strong>Tipe:</strong> Association / Foreign Key</div>
+                <div><strong>Deskripsi:</strong> Banyak kendaraan dapat diinput/output oleh satu user</div>
+                <div><strong>Implementasi:</strong> Kendaraan.petugas_masuk/petugas_keluar = User.username</div>
+            </div>
+
+            <div class="relationship-box">
+                <div class="relationship-title">Kendaraan ↔ Kendaraan_Pribadi (1:0..1)</div>
+                <div><strong>Tipe:</strong> Composition / Specialization</div>
+                <div><strong>Deskripsi:</strong> Setiap kendaraan pribadi memiliki satu record di Kendaraan</div>
+                <div><strong>Implementasi:</strong> Kendaraan_Pribadi.nopol = Kendaraan.nopol</div>
+            </div>
+
+            <div class="relationship-box">
+                <div class="relationship-title">Kendaraan ↔ Bus (1:0..1)</div>
+                <div><strong>Tipe:</strong> Composition / Specialization</div>
+                <div><strong>Deskripsi:</strong> Setiap bus memiliki satu record di Kendaraan</div>
+                <div><strong>Implementasi:</strong> Bus.nopol = Kendaraan.nopol</div>
+            </div>
+
+            <div class="relationship-box">
+                <div class="relationship-title">Kendaraan_Manager → Kendaraan (1:N)</div>
+                <div><strong>Tipe:</strong> Dependency / Manager Pattern</div>
+                <div><strong>Deskripsi:</strong> Manager class berinteraksi dengan multiple Kendaraan objects</div>
+                <div><strong>Implementasi:</strong> Static methods di Kendaraan_Manager</div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>📐 Class Diagram - Inheritance Hierarchy</h2>
+            
+            <div style="background: white; padding: 15px; border-radius: 5px;">
+                <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;">
+<strong>Kendaraan (Base Class)</strong>
+    │
+    ├─→ Kendaraan_Pribadi
+    │   ├─ tipe: Motor / Mobil
+    │   ├─ tarif: 2.500 / 5.000 per jam
+    │   └─ methods: kendaraan_masuk(), get_detail_pribadi()
+    │
+    └─→ Bus
+        ├─ kategori: Elf / Bus
+        ├─ kapasitas: 8-15 / 12-40
+        ├─ tarif: calculated by kapasitas
+        └─ methods: kendaraan_masuk(), get_detail_bus()
+                </pre>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>💼 Penjelasan Implementasi OOP</h2>
+            
+            <div class="grid-layout">
+                <div class="class-box">
+                    <div class="class-title">Encapsulation</div>
+                    <div class="class-content">
+                        <p>Setiap class menyembunyikan internal logic:</p>
+                        <ul style="margin: 10px 0; padding-left: 20px;">
+                            <li>User class handle login & auth</li>
+                            <li>Kendaraan_Manager handle business logic</li>
+                            <li>Private attributes (_attribute)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="class-box">
+                    <div class="class-title">Inheritance</div>
+                    <div class="class-content">
+                        <p>Kendaraan_Pribadi dan Bus mewarisi dari Kendaraan:</p>
+                        <ul style="margin: 10px 0; padding-left: 20px;">
+                            <li>Shared: id, nopol, waktu_masuk, petugas_masuk</li>
+                            <li>Specific: tipe (Pribadi), kategori (Bus)</li>
+                            <li>Reusable code: inherit methods</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="class-box">
+                    <div class="class-title">Polymorphism</div>
+                    <div class="class-content">
+                        <p>Method overriding di subclass:</p>
+                        <ul style="margin: 10px 0; padding-left: 20px;">
+                            <li>kendaraan_masuk() berbeda logic untuk Pribadi vs Bus</li>
+                            <li>Hitung tarif berbeda berdasarkan tipe</li>
+                            <li>Same method, different behavior</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="class-box">
+                    <div class="class-title">Abstraction</div>
+                    <div class="class-content">
+                        <p>Hiding complex details:</p>
+                        <ul style="margin: 10px 0; padding-left: 20px;">
+                            <li>Kendaraan_Manager abstracts DB queries</li>
+                            <li>User hanya perlu call simple methods</li>
+                            <li>SQL complexity tidak terlihat di UI</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>🔄 Method Call Examples</h2>
+            
+            <div class="class-box">
+                <div class="class-title">Contoh: Catat Kendaraan Masuk (Motor)</div>
+                <div class="code-block">
+<span class="comment"># 1. Create object</span>
+obj = <span class="keyword">Kendaraan_Pribadi</span>()
+
+<span class="comment"># 2. Call method</span>
+obj.kendaraan_masuk(
+    nopol=<span class="string">"AG 123 XY"</span>,
+    tipe=<span class="string">"Motor"</span>,
+    tarif=<span class="keyword">2500</span>,
+    petugas=<span class="string">"Kasir1"</span>
+)
+
+<span class="comment"># Behind the scenes:</span>
+<span class="comment"># - Insert to kendaraan table (status=parkir)</span>
+<span class="comment"># - Insert to kendaraan_pribadi table (tipe, tarif)</span>
+<span class="comment"># - Record waktu_masuk & petugas_masuk</span>
+                </div>
+            </div>
+
+            <div class="class-box">
+                <div class="class-title">Contoh: Catat Kendaraan Keluar</div>
+                <div class="code-block">
+<span class="comment"># 1. Manager get detail</span>
+detail = <span class="keyword">Kendaraan_Manager</span>.get_kendaraan_detail(<span class="string">"AG 123 XY"</span>)
+
+<span class="comment"># 2. Calculate tariff</span>
+subtotal, jam = <span class="keyword">Kendaraan_Manager</span>.hitung_tarif(
+    waktu_masuk=detail[1],
+    waktu_keluar=datetime.now(),
+    tarif_per_jam=<span class="keyword">2500</span>
+)
+
+<span class="comment"># 3. Update kendaraan</span>
+obj = <span class="keyword">Kendaraan</span>()
+obj.kendaraan_keluar(nopol=<span class="string">"AG 123 XY"</span>, petugas=<span class="string">"Kasir1"</span>)
+
+<span class="comment"># Behind the scenes:</span>
+<span class="comment"># - Update kendaraan (status=keluar, waktu_keluar, petugas_keluar)</span>
+<span class="comment"># - Show tariff to user</span>
+                </div>
+            </div>
+
+            <div class="class-box">
+                <div class="class-title">Contoh: Login User</div>
+                <div class="code-block">
+<span class="comment"># 1. User login</span>
+level = <span class="keyword">User</span>.login(username, password)
+
+<span class="comment"># 2. If success, store in session</span>
+<span class="keyword">session</span>.current_user = username
+
+<span class="comment"># 3. Redirect to dashboard</span>
+<span class="comment"># - If level=Admin → Admin Dashboard</span>
+<span class="comment"># - If level=Kasir → Kasir Dashboard</span>
+
+<span class="comment"># Behind the scenes:</span>
+<span class="comment"># - Query user table with username & password</span>
+<span class="comment"># - Validate credentials</span>
+<span class="comment"># - Return level for authorization</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>📊 Tabel Summary Class & Responsibility</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Class Name</th>
+                        <th>Type</th>
+                        <th>Primary Responsibility</th>
+                        <th>Database Table</th>
+                        <th>Key Methods</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>User</strong></td>
+                        <td>Entity</td>
+                        <td>User management & authentication</td>
+                        <td>user</td>
+                        <td>login(), insert_data(), update_data(), delete_data()</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Level</strong></td>
+                        <td>Entity</td>
+                        <td>Store role definitions</td>
+                        <td>level</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kendaraan</strong></td>
+                        <td>Entity (Base)</td>
+                        <td>Track vehicle parking status</td>
+                        <td>kendaraan</td>
+                        <td>kendaraan_masuk(), kendaraan_keluar(), select_data()</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kendaraan_Pribadi</strong></td>
+                        <td>Entity (Child)</td>
+                        <td>Store private vehicle details</td>
+                        <td>kendaraan_pribadi</td>
+                        <td>kendaraan_masuk(), get_detail_pribadi()</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bus</strong></td>
+                        <td>Entity (Child)</td>
+                        <td>Store bus details</td>
+                        <td>bus</td>
+                        <td>kendaraan_masuk(), get_detail_bus()</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kendaraan_Manager</strong></td>
+                        <td>Manager/Service</td>
+                        <td>Business logic & vehicle operations</td>
+                        <td>Multiple</td>
+                        <td>hitung_tarif(), is_nopol_exists(), search_kendaraan()</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Session</strong></td>
+                        <td>Utility</td>
+                        <td>Store current user session</td>
+                        <td>None (Memory)</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Connection</strong></td>
+                        <td>Utility</td>
+                        <td>Database connection management</td>
+                        <td>N/A</td>
+                        <td>connect(), close()</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="info-section">
+            <h2>✅ Design Patterns Used</h2>
+            
+            <div class="grid-layout">
+                <div class="class-box">
+                    <div class="class-title">1. Singleton Pattern</div>
+                    <div class="class-content">
+                        <p><strong>Used in:</strong> Connection, Session</p>
+                        <p>Hanya ada satu instance database connection yang di-share oleh semua class</p>
+                    </div>
+                </div>
+
+                <div class="class-box">
+                    <div class="class-title">2. Manager/Service Pattern</div>
+                    <div class="class-content">
+                        <p><strong>Used in:</strong> Kendaraan_Manager</p>
+                        <p>Static methods untuk business logic yang kompleks, terpisah dari Entity class</p>
+                    </div>
+                </div>
+
+                <div class="class-box">
+                    <div class="class-title">3. Repository Pattern</div>
+                    <div class="class-content">
+                        <p><strong>Used in:</strong> User, Kendaraan, Kendaraan_Pribadi, Bus</p>
+                        <p>Class-level methods untuk CRUD operations pada database</p>
+                    </div>
+                </div>
+
+                <div class="class-box">
+                    <div class="class-title">4. Inheritance/Template</div>
+                    <div class="class-content">
+                        <p><strong>Used in:</strong> Kendaraan (base) → Kendaraan_Pribadi, Bus</p>
+                        <p>Reuse common attributes dan methods dari parent class</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERD - Sistem Parkiran</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+        .diagram-container {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #667eea;
+            overflow-x: auto;
+        }
+        .info-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .table-info {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .table-name {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .fields {
+            font-size: 0.95em;
+            color: #555;
+            line-height: 1.8;
+        }
+        .primary-key {
+            color: #d9534f;
+            font-weight: bold;
+        }
+        .foreign-key {
+            color: #0275d8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Entity Relationship Diagram (ERD)</h1>
+        <h2 style="text-align: center; color: #666; margin-top: 0;">Sistem Manajemen Parkiran</h2>
+        
+        <div class="diagram-container">
+            <div class="mermaid">
+erDiagram
+    USER ||--o{ KENDARAAN : "petugas_masuk"
+    USER ||--o{ KENDARAAN : "petugas_keluar"
+    KENDARAAN ||--o| KENDARAAN_PRIBADI : "contains"
+    KENDARAAN ||--o| BUS : "contains"
+    LEVEL ||--o{ USER : "has"
+
+    USER {
+        string username PK "Primary Key"
+        string nama
+        string password
+        string level FK "Foreign Key to LEVEL"
+    }
+
+    LEVEL {
+        int id PK "Primary Key"
+        string level
+    }
+
+    KENDARAAN {
+        int id PK "Primary Key"
+        string nopol
+        datetime waktu_masuk
+        string petugas_masuk FK "Foreign Key to USER"
+        datetime waktu_keluar
+        string petugas_keluar FK "Foreign Key to USER"
+        string status
+    }
+
+    KENDARAAN_PRIBADI {
+        int id PK "Primary Key"
+        string nopol FK "Foreign Key to KENDARAAN"
+        string tipe
+        int tarif
+    }
+
+    BUS {
+        int id PK "Primary Key"
+        string nopol FK "Foreign Key to KENDARAAN"
+        string kategori
+        int kapasitas
+        int tarif
+    }
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>📋 Penjelasan Detail Tabel</h2>
+            
+            <div class="table-info">
+                <div class="table-name">👤 USER</div>
+                <div class="fields">
+                    <div><span class="primary-key">username (PK)</span> - Identitas unik pengguna</div>
+                    <div>nama - Nama lengkap pengguna</div>
+                    <div>password - Sandi pengguna</div>
+                    <div><span class="foreign-key">level (FK)</span> - Referensi ke tabel LEVEL (admin/kasir)</div>
+                </div>
+            </div>
+
+            <div class="table-info">
+                <div class="table-name">🔐 LEVEL</div>
+                <div class="fields">
+                    <div><span class="primary-key">id (PK)</span> - Identitas unik level</div>
+                    <div>level - Jenis level (admin, kasir)</div>
+                </div>
+            </div>
+
+            <div class="table-info">
+                <div class="table-name">🚗 KENDARAAN</div>
+                <div class="fields">
+                    <div><span class="primary-key">id (PK)</span> - Identitas unik kendaraan</div>
+                    <div>nopol - Nomor polisi kendaraan</div>
+                    <div>waktu_masuk - Waktu kendaraan masuk parkir</div>
+                    <div><span class="foreign-key">petugas_masuk (FK)</span> - Referensi ke USER yang catat masuk</div>
+                    <div>waktu_keluar - Waktu kendaraan keluar parkir</div>
+                    <div><span class="foreign-key">petugas_keluar (FK)</span> - Referensi ke USER yang catat keluar</div>
+                    <div>status - Status kendaraan (parkir/keluar)</div>
+                </div>
+            </div>
+
+            <div class="table-info">
+                <div class="table-name">🏍️ KENDARAAN_PRIBADI</div>
+                <div class="fields">
+                    <div><span class="primary-key">id (PK)</span> - Identitas unik kendaraan pribadi</div>
+                    <div><span class="foreign-key">nopol (FK)</span> - Referensi ke tabel KENDARAAN</div>
+                    <div>tipe - Jenis kendaraan (Motor/Mobil)</div>
+                    <div>tarif - Tarif parkir per jam</div>
+                </div>
+            </div>
+
+            <div class="table-info">
+                <div class="table-name">🚌 BUS</div>
+                <div class="fields">
+                    <div><span class="primary-key">id (PK)</span> - Identitas unik bus</div>
+                    <div><span class="foreign-key">nopol (FK)</span> - Referensi ke tabel KENDARAAN</div>
+                    <div>kategori - Jenis bus (Elf/Bus)</div>
+                    <div>kapasitas - Kapasitas penumpang</div>
+                    <div>tarif - Tarif parkir per jam</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>🔗 Relasi Antar Tabel</h2>
+            <div style="background: white; padding: 15px; border-radius: 5px;">
+                <ul style="line-height: 2;">
+                    <li><strong>USER ↔ LEVEL:</strong> Satu level memiliki banyak user (1:N)</li>
+                    <li><strong>USER ↔ KENDARAAN:</strong> Satu user dapat mencatat banyak kendaraan masuk/keluar (1:N)</li>
+                    <li><strong>KENDARAAN ↔ KENDARAAN_PRIBADI:</strong> Satu kendaraan dapat memiliki data pribadi (1:0..1)</li>
+                    <li><strong>KENDARAAN ↔ BUS:</strong> Satu kendaraan dapat memiliki data bus (1:0..1)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
