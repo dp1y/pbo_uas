@@ -198,7 +198,16 @@ class Ui_MainWindow(object):
                 return
             
             if Kendaraan.is_nopol_exists(nopol):
-                QMessageBox.warning(None, "Error", f"Nopol {nopol} sudah terparkir!")
+                detail = Kendaraan.get_kendaraan_detail(nopol)
+                if detail:
+                    waktu_masuk = detail[1]
+                    try:
+                        waktu_text = waktu_masuk.strftime('%Y-%m-%d %H:%M:%S')
+                    except Exception:
+                        waktu_text = str(waktu_masuk)
+                    QMessageBox.warning(None, "Peringatan", f"Nopol {nopol} sudah masuk pada {waktu_text} dan belum keluar.")
+                else:
+                    QMessageBox.warning(None, "Peringatan", f"Nopol {nopol} sudah terparkir!")
                 return
             
             if kategori == "Kendaraan Pribadi":
